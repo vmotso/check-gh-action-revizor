@@ -15,28 +15,26 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: v1.29
-  setup-test-env:
+  test:
     runs-on: ubuntu-latest
-    name: create test environment
+    name: tests
     steps:
       - name: create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
-          command: "create"
+          command: create
         env:
           REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
           SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
-  delete-test-env:
-    runs-on: ubuntu-latest
-    name: delete test environment
-    steps:
+      - name: acc tests
+        run: echo "Tests are running..." 
       - name: delete container
         id: delete
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
-          command: "delete"
-          id: "be0bf69f48f9"
+          command: delete
+          id: ${{ steps.create.outputs.id }}
         env:
           REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
           SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
