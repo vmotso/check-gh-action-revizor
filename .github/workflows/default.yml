@@ -18,7 +18,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: tests
-    continue-on-error: true
     steps:
       - name: create container
         id: create
@@ -30,6 +29,7 @@ jobs:
           REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
           SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
       - name: acc tests
+        continue-on-error: true
         run: echo1 "Tests are running..." 
       - name: delete container
         id: delete
