@@ -15,3 +15,23 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: v1.29
+  setup-test-env:
+    runs-on: ubuntu-latest
+    name: Create revizor container for acc-tests
+    steps:
+      - name: Create container
+        id: create
+        uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
+        with:
+          command: "create"
+
+  delete-test-env:
+    runs-on: ubuntu-latest
+    name: Delete created container.
+    steps:
+      - name: Delete container
+        id: delete
+        uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
+        with:
+          command: "delete"
+          id: "be0bf69f48f9"
