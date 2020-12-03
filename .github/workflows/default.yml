@@ -17,21 +17,24 @@ jobs:
           version: v1.29
   setup-test-env:
     runs-on: ubuntu-latest
-    name: Create revizor container for acc-tests
+    name: create test environment
     steps:
-      - name: Create container
+      - name: create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: "create"
-
+        env: &env
+          REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
+          SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
   delete-test-env:
     runs-on: ubuntu-latest
-    name: Delete created container.
+    name: delete test environment
     steps:
-      - name: Delete container
+      - name: delete container
         id: delete
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: "delete"
           id: "be0bf69f48f9"
+        env: *env
