@@ -1,0 +1,1 @@
+# check-gh-action-revizor
