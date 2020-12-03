@@ -25,6 +25,7 @@ jobs:
         with:
           command: create
         env:
+          REVIZOR_URL: ${{ secrets.REVIZOR_URL }}
           REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
           SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
       - name: acc tests
@@ -36,5 +37,6 @@ jobs:
           command: delete
           id: ${{ steps.create.outputs.id }}
         env:
+          REVIZOR_URL: ${{ secrets.REVIZOR_URL }}
           REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
           SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
