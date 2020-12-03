@@ -29,10 +29,10 @@ jobs:
           REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
           SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
       - name: acc tests
-        continue-on-error: true
         run: echo1 "Tests are running..." 
       - name: delete container
         id: delete
+        if: ${{ always() }}
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: delete
