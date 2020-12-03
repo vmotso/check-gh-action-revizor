@@ -18,18 +18,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: tests
+    env:
+      REVIZOR_URL: ${{ secrets.REVIZOR_URL }}
+      REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
+      SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
       - name: create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: create
-        env:
-          REVIZOR_URL: ${{ secrets.REVIZOR_URL }}
-          REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
-          SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
       - name: acc tests
-        run: echo1 "Tests are running..." 
+        env:
+          SCALR_HOSTNAME: "scalr-id"
+        run:  printenv
       - name: delete container
         id: delete
         if: ${{ always() }}
@@ -37,7 +39,3 @@ jobs:
         with:
           command: delete
           id: ${{ steps.create.outputs.id }}
-        env:
-          REVIZOR_URL: ${{ secrets.REVIZOR_URL }}
-          REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
-          SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
