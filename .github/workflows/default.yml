@@ -30,7 +30,8 @@ jobs:
           command: create
       - name: Acceptance tests
         env:
-          SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}"
+          SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
+          FROM_BRANCH: ${GITHUB_REF#refs/heads/}
         run: |
           printenv
       - name: Delete container
