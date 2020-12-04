@@ -23,6 +23,9 @@ jobs:
       REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
       SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
+      - name: Extract branch name
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
@@ -31,7 +34,7 @@ jobs:
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
-          FROM_BRANCH: ${GITHUB_REF#refs/heads/}
+          FROM_BRANCH: ${{ steps.extract_branch.outputs.branch }}
         run: |
           printenv
       - name: Delete container
