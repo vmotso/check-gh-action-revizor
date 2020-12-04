@@ -24,7 +24,7 @@ jobs:
       SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
       - name: Extract branch name
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
         id: extract_branch
       - name: Create container
         id: create
@@ -34,6 +34,7 @@ jobs:
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
+          TEST_BRANCH: ${{GITHUB_REF#refs/heads/}}
           FROM_BRANCH: ${{ steps.extract_branch.outputs.branch }}
         run: |
           printenv
