@@ -32,11 +32,12 @@ jobs:
         with:
           command: create
       - name: Acceptance tests
+      - uses: nelonoel/branch-name@v1.0.1
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
           FROM_BRANCH: ${{ steps.extract_branch.outputs.branch }}
         run: |
-          git branch
+          echo ${BRANCH_NAME}
           printenv
       - name: Delete container
         id: delete
