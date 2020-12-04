@@ -34,7 +34,6 @@ jobs:
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
-          TEST_BRANCH: ${{GITHUB_REF#refs/heads/}}
           FROM_BRANCH: ${{ steps.extract_branch.outputs.branch }}
         run: |
           printenv
