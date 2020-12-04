@@ -36,6 +36,7 @@ jobs:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
           FROM_BRANCH: ${{ steps.extract_branch.outputs.branch }}
         run: |
+          git branch
           printenv
       - name: Delete container
         id: delete
