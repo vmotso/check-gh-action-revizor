@@ -31,8 +31,8 @@ jobs:
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: create
-      - name: Acceptance tests
       - uses: nelonoel/branch-name@v1.0.1
+      - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
           FROM_BRANCH: ${{ steps.extract_branch.outputs.branch }}
