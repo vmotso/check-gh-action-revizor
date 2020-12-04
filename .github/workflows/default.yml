@@ -30,10 +30,9 @@ jobs:
           command: create
       - name: Acceptance tests
         env:
-          SCALR_HOSTNAME: "scalr-id"
+          SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}"
         run: |
-          echo "Container_id ${{ steps.create.outputs.container_id }}"
-          echo "Hostname ${{ steps.create.outputs.hostname }}"
+          printenv
       - name: Delete container
         id: delete
         if: ${{ always() }}
