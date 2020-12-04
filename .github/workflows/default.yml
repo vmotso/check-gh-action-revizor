@@ -23,19 +23,21 @@ jobs:
       REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
       SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
-      - name: create container
+      - name: Create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: create
-      - name: acc tests
+      - name: Acceptance tests
         env:
           SCALR_HOSTNAME: "scalr-id"
-        run: echo ${{ steps.create.outputs.container_id }}
-      - name: delete container
+        run: |
+          echo "Container_id ${{ steps.create.outputs.container_id }}"
+          echo "Hostname ${{ steps.create.outputs.hostname }}"
+      - name: Delete container
         id: delete
         if: ${{ always() }}
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: delete
-          container_id: ${{ steps.create.outputs.cointainer_id }}
+          container_id: ${{ steps.create.outputs.container_id }}
