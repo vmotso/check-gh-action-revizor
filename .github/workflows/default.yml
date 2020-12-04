@@ -31,11 +31,11 @@ jobs:
       - name: acc tests
         env:
           SCALR_HOSTNAME: "scalr-id"
-        run:  printenv
+        run: echo ${{ steps.create.outputs.container_id }}
       - name: delete container
         id: delete
         if: ${{ always() }}
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: delete
-          id: ${{ steps.create.outputs.id }}
+          container_id: ${{ steps.create.outputs.cointainer_id }}
