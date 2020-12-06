@@ -27,7 +27,7 @@ jobs:
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
-          command: create
+          command: create error
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
@@ -37,7 +37,8 @@ jobs:
           ls -l
       - name: Delete container
         id: delete
-        if: ${{ always() }}
+        #if: ${{ always() }}
+        if: ${{  steps.create.outputs.container_id }}
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: delete
