@@ -37,8 +37,8 @@ jobs:
           ls -l
       - name: Delete container
         id: delete
-        #if: ${{ always() }}
-        if: ${{  steps.create.outputs.container_id }}
+        if: ${{ always() }}
+        # if: ${{  steps.create.outputs.container_id }}
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: delete
