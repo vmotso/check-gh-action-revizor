@@ -23,6 +23,13 @@ jobs:
       REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
       SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
+      - uses: actions/github-script@v3
+        with:
+          script: |
+            scalr_branch = github.event.pull_request.body(/SCALR_BRANCH=([^\s]+)/);
+            if (scalr_branch !== null) {
+              core.exportVariable("SCALR_BRANCH", scalr_branch=1)
+            }
       - name: Create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
@@ -31,11 +38,12 @@ jobs:
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
-        run: |
-          git clone https://github.com/Scalr/terraform-provider-scalr.git
-          cd terraform-provider-scalr
-          git checkout feature/SCALRCORE-16917
-          make testacc
+        run: printenv
+        # run: |
+        #   git clone https://github.com/Scalr/terraform-provider-scalr.git
+        #   cd terraform-provider-scalr
+        #   git checkout feature/SCALRCORE-16917
+        #   make testacc
       - name: Delete container
         id: delete
         if: ${{  steps.create.outputs.container_id }}
