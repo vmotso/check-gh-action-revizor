@@ -28,7 +28,7 @@ jobs:
           script: |
             scalr_branch = github.event.pull_request.body(/SCALR_BRANCH=([^\s]+)/);
             if (scalr_branch !== null) {
-              core.exportVariable("SCALR_BRANCH", scalr_branch=1)
+              core.exportVariable("SCALR_BRANCH", scalr_branch[1])
             }
       - name: Create container
         id: create
