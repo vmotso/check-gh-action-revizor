@@ -27,18 +27,18 @@ jobs:
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
-          command: create error
+          command: create
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
         run: |
           git clone https://github.com/Scalr/terraform-provider-scalr.git
           cd terraform-provider-scalr
-          ls -l
+          git checkout feature/SCALRCORE-16917
+          make testacc
       - name: Delete container
         id: delete
-        if: ${{ always() }}
-        # if: ${{  steps.create.outputs.container_id }}
+        if: ${{  steps.create.outputs.container_id }}
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: delete
