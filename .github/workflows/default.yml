@@ -32,7 +32,7 @@ jobs:
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
         run: |
-          git clone git@github.com:Scalr/terraform-provider-scalr.git
+          git clone https://github.com/Scalr/terraform-provider-scalr.git
           cd terraform-provider-scalr
           ls -l
       - name: Delete container
