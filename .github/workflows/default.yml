@@ -23,18 +23,17 @@ jobs:
       REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
       SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
-      - name: Set flags from PR
-        # if: ${{  github.event.pull_request }}
+      - name: Environment settings
         env:
-          API_BRANCH: ${{ contains(github.event.pull_request.body, '[API_BRANCH]') }}
-          DB_BRANCH: ${{ contains(github.event.pull_request.body, '[DB_BRANCH]') }}
-          PR_BODY: ${{ github.event.pull_request.body }}
+          API_BRANCH: ${{ contains(github.event.head_commit.message, '[API_BRANCH]') }}
+          DB_BRANCH: ${{ contains(github.event.head_commit.message, '[DB_BRANCH]') }}
         run: |
-          echo "PR_BODY=${PR_BODY}" >> $GITHUB_ENV
           echo "API_BRANCH=${API_BRANCH}" >> $GITHUB_ENV
-          echo "Set env var from PR: API_BRANCH=${API_BRANCH}"
+          echo "Set env variable from commit message: API_BRANCH=${API_BRANCH}"
           echo "DB_BRANCH=${DB_BRANCH}" >> $GITHUB_ENV
-          echo "Set env var from PR: DB_BRANCH=${DB_BRANCH}"
+          echo "Set env variable from commit message: DB_BRANCH=${DB_BRANCH}"
+          echo BRANCH=${GITHUB_REF#refs/heads/} >> $GITHUB_ENV
+          echo "Set env variable: BRANCH=${GITHUB_REF#refs/heads/}"
       - name: Create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
