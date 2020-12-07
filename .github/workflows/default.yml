@@ -28,7 +28,7 @@ jobs:
         env:
           API_BRANCH: ${{ contains(github.event.pull_request.body, '[API_BRANCH]') }}
           DB_BRANCH: ${{ contains(github.event.pull_request.body, '[DB_BRANCH]') }}
-          PR_BODY: ${{ contains(github.event.pull_request.body }}
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           echo "PR_BODY=${PR_BODY}" >> $GITHUB_ENV
           echo "API_BRANCH=${API_BRANCH}" >> $GITHUB_ENV
