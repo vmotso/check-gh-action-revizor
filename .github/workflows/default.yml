@@ -23,13 +23,16 @@ jobs:
       REVIZOR_TOKEN: ${{ secrets.REVIZOR_TOKEN }}
       SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
-      - uses: actions/github-script@v3
-        with:
-          script: |
-            scalr_branch = github.event.pull_request.body(/SCALR_BRANCH=([^\s]+)/);
-            if (scalr_branch !== null) {
-              core.exportVariable("SCALR_BRANCH", scalr_branch[1])
-            }
+      - name: Set flags from PR
+        if: ${{  github.event.pull_request }}
+        env:
+          API_BRANCH: ${{ contains(github.event.pull_request.body, '[API_BRANCH]') }}
+          DB_BRANCH: ${{ contains(github.event.pull_request.body, '[DB_BRANCH]') }}
+        run: |
+          echo "::set-env name=API_BRANCH::${API_BRANCH}"
+          echo "Set env var from PR: API_BRANCH=${API_BRANCH}"
+          echo "::set-env name=DB_BRANCH::${DB_BRANCH}"
+          echo "Set env var from PR: DB_BRANCH=${DB_BRANCH}"
       - name: Create container
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
