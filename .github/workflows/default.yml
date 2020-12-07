@@ -24,7 +24,7 @@ jobs:
       SCALR_TOKEN: ${{ secrets.SCALR_TOKEN }}
     steps:
       - name: Set flags from PR
-        if: ${{  github.event.pull_request }}
+        # if: ${{  github.event.pull_request }}
         env:
           API_BRANCH: ${{ contains(github.event.pull_request.body, '[API_BRANCH]') }}
           DB_BRANCH: ${{ contains(github.event.pull_request.body, '[DB_BRANCH]') }}
