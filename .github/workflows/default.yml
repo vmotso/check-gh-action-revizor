@@ -42,12 +42,11 @@ jobs:
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
-        run: printenv
-        # run: |
-        #   git clone https://github.com/Scalr/terraform-provider-scalr.git
-        #   cd terraform-provider-scalr
-        #   git checkout feature/SCALRCORE-16917
-        #   make testacc
+        run: |
+          git clone https://github.com/Scalr/terraform-provider-scalr.git
+          cd terraform-provider-scalr
+          git checkout feature/SCALRCORE-16917
+          make testacc
       - name: Delete container
         id: delete
         if: ${{  steps.create.outputs.container_id }}
