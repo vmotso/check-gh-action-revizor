@@ -29,9 +29,9 @@ jobs:
           API_BRANCH: ${{ contains(github.event.pull_request.body, '[API_BRANCH]') }}
           DB_BRANCH: ${{ contains(github.event.pull_request.body, '[DB_BRANCH]') }}
         run: |
-          echo "::set-env name=API_BRANCH::${API_BRANCH}"
+          echo "API_BRANCH=${API_BRANCH}" >> $GITHUB_ENV
           echo "Set env var from PR: API_BRANCH=${API_BRANCH}"
-          echo "::set-env name=DB_BRANCH::${DB_BRANCH}"
+          echo "DB_BRANCH=${DB_BRANCH}" >> $GITHUB_ENV
           echo "Set env var from PR: DB_BRANCH=${DB_BRANCH}"
       - name: Create container
         id: create
