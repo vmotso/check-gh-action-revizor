@@ -50,7 +50,7 @@ jobs:
           # make testacc
       - name: Delete container
         id: delete
-        if: ${{  steps.create.outputs.container_id }}
+        if: ${{ always() && steps.create.outputs.container_id }}
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
           command: delete
