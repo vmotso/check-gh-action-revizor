@@ -38,7 +38,7 @@ jobs:
         id: create
         uses: Scalr/gh-action-revizor@feature/SCALRCORE-16917
         with:
-          command: create
+          command: qw
       - name: Acceptance tests
         env:
           SCALR_HOSTNAME: ${{ steps.create.outputs.hostname }}
